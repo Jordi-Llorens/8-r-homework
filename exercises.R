@@ -5,5 +5,5 @@
 # it returns "Hello Data Science!"
 
 hello <- function(){
-    return('Hello Data Science!')
+    return('Hello Data!')
 }
