@@ -35,3 +35,16 @@ countdown <- function(n){
   return(vec)
 }
 
+# 4. -----
+# Convert day column so that it is integer (without dplyr)
+chr2int <- function(df){
+  # your code
+  return(df)
+}
+
+
+# 5. Determine which columns contain missing values ----
+
+na.by.col <- function(df){
+  # your code
+}
