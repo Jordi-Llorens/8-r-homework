@@ -43,6 +43,7 @@ chr2int <- function(df){
   return(df)
 }
 
+
 # 5. -----
 # Determine which columns contain missing values (without dplyr)
 
@@ -63,3 +64,16 @@ dob2age <- function(today,dates){
   # your code
 }
 
+# 7. -----
+# Law of Large Numbers and Expected Values
+
+exp.val <- function(x,p,icdf,type=c('discrete','continuous')){
+  type <- tolower(type)
+  type <- match.arg(type)
+  if (type=='discrete'){
+    # your code
+  } else {
+    u <- runif(1e6)
+    # your code
+  }
+}
