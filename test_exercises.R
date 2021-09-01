@@ -51,7 +51,8 @@ if (is.null(chr2int(sales))){
   correct <- correct + 1
 }
 
-# 5. Determine which columns contain missing values ----
+# 5. na.by.col ---- 
+# Determine which columns contain missing values
 bool_vec <- c(F,F,F,T,F)
 wine <- read.csv('data/wine.csv')
 if (is.null(na.by.col(wine))){
@@ -62,10 +63,36 @@ if (is.null(na.by.col(wine))){
   correct <- correct + 1
 }
 
+# 7. exp.val ----
+# Law of Large Numbers and Expected Values
+
+exp.icdf <- function(u) qexp(u,rate=2)
+norm.icdf <- function(u) qnorm(u,1,1)
+
+x <- 1:10
+set.seed(1)
+p <- sample(1:10,size=10,replace=F) / sum(x)
+tol_d <- 1e-5
+tol_c <- 1e-2
+
+if (is.null(exp.val(x,p,type='d'))){
+  errors <- c(errors, "exp.val(x,p,type='D') yields NULL value")
+} else if (is.null(exp.val(icdf=exp.icdf,type='C'))){
+  errors <- c(errors, "exp.val(icdf,type='C') yields NULL value")
+} else if (abs(as.numeric(exp.val(x,p,type='d')) - sum(x*p)) > tol_d ){
+  errors <- c(errors, "exp.val(x,p,type='d') yields incorrect value")
+} else if (abs(as.numeric(exp.val(icdf=exp.icdf,type='c'))-1/2) > tol_c ){
+  errors <- c(errors, "exp.val(exp.icdf,type='c') yields incorrect value")
+} else if (abs(as.numeric(exp.val(icdf=norm.icdf,type='c'))-1) > tol_c){
+  errors <- c(errors, "exp.val(norm.icdf,type='c') yields incorrect value")
+} else {
+  correct <- correct + 1
+}
+
 # Grading ----
 
 n <- 5
-if (correct < n){
+ if (correct < n){
   print(errors)
   stop('Grade: ',round(correct/n,2)*100)
 } else {
