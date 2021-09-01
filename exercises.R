@@ -66,14 +66,76 @@ dob2age <- function(today,dates){
 
 # 7. -----
 # Law of Large Numbers and Expected Values
+# Assume "x" is a numeric vector, and "p" a numeric vector of probabilities.
+# When "type" is "discrete", the expected value is (x_1*p_1 + ... + x_n*p_n)
+# When "type" is "continuous", we use the Probability Integral Transform
+# to simulate 1 million draws of X and approximate the expected value with the
+# sample average (due to the LLN). 
+# Hint: simulate 1 million draws from a uniform distribution and 
+# use the inverse CDF function (icdf) to get the corresponding simulated values of X.
+# Hint2: "type" can only be "discrete" or "continuous", but we want to let the user
+# input only "D" for "discrete" or "C" for continuous. You may use match.arg().
 
 exp.val <- function(x,p,icdf,type=c('discrete','continuous')){
-  type <- tolower(type)
-  type <- match.arg(type)
+  # your code
   if (type=='discrete'){
     # your code
   } else {
-    u <- runif(1e6)
     # your code
   }
+}
+
+# 8. ----
+# E-step: for each row in the data matrix, assign the closest centroid 
+# based on distance d(x,y).
+# Arguments:
+# data: an n x p matrix.
+# mu: a p x K matrix.
+# d: a function d(x,y) where x and y are p-dimensional vectors.
+# Note: the vector of assignments must be in the range {1,...,K}.
+
+e_step <- function(data, centroids, d){
+  n <- nrow(data)
+  assignments <- rep(NA,n)
+  for (i in 1:n){
+    # your code
+  }
+  return(assignments)  
+}
+
+# 9. ----
+# M-step: recompute the centroids based on the sample average. 
+# Arguments:
+# data: an n x p matrix.
+# assignments: an n-vector of integers in {1,...,K}.
+# d: a function d(x,y) where x and y are p-dimensional vectors.
+#
+# For example, if K = 2, then the first centroid is the p-dimensional mean vector
+# of the data points assigned to class 1
+# and the second centroid is the p-dimensional mean vector of data points 
+# assigned to class 2.
+
+m_step <- function(data, assignments, d){
+  # your code
+  return(centroids)
+}
+
+# 10. ----
+# K-means algorithm. 
+# Arguments: 
+# data: n x p matrix.
+# K: an integer > 1.
+# d: a function d(x,y) where x and y are p-dimensional vectors.
+# Hint: use the functions e_step and m_step inside the while loop and exit the loop
+# when the vector of assignments stops changing.
+
+my_kmeans <- function(data,K,d){
+  n <- nrow(data)
+  p <- ncol(data)
+  centroids <- data[sample(1:n,size=K,replace=T),]
+  assignments <- rep(NA,n)
+  while(TRUE){
+    # your code
+  }
+  return(assignments)
 }

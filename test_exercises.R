@@ -1,5 +1,5 @@
-# source('exercises.R')
-source('solutions.R')
+source('exercises.R')
+# source('solutions.R')
 correct <- 0
 errors <- c()
 
@@ -105,19 +105,74 @@ if (is.null(exp.val(x,p,type='d'))){
   errors <- c(errors, "exp.val(x,p,type='D') yields NULL value")
 } else if (is.null(exp.val(icdf=exp.icdf,type='C'))){
   errors <- c(errors, "exp.val(icdf,type='C') yields NULL value")
-} else if (abs(as.numeric(exp.val(x,p,type='d')) - sum(x*p)) > tol_d ){
-  errors <- c(errors, "exp.val(x,p,type='d') yields incorrect value")
-} else if (abs(as.numeric(exp.val(icdf=exp.icdf,type='c'))-1/2) > tol_c ){
-  errors <- c(errors, "exp.val(exp.icdf,type='c') yields incorrect value")
-} else if (abs(as.numeric(exp.val(icdf=norm.icdf,type='c'))-1) > tol_c){
-  errors <- c(errors, "exp.val(norm.icdf,type='c') yields incorrect value")
+} else if (abs(as.numeric(exp.val(x,p,type='D')) - sum(x*p)) > tol_d ){
+  errors <- c(errors, "exp.val(x,p,type='D') yields incorrect value")
+} else if (abs(as.numeric(exp.val(icdf=exp.icdf,type='C'))-1/2) > tol_c ){
+  errors <- c(errors, "exp.val(exp.icdf,type='C') yields incorrect value")
+} else if (abs(as.numeric(exp.val(icdf=norm.icdf,type='C'))-1) > tol_c){
+  errors <- c(errors, "exp.val(norm.icdf,type='C') yields incorrect value")
+} else {
+  correct <- correct + 1
+}
+
+# 8. e_step ----
+
+X0 <- matrix(c(.1,.1,.9,.9),2,2,byrow=T)
+mu0 <- matrix(c(0,0,1,1),2,2,byrow=T)
+euclidean_dist <- function(x,y) sqrt( sum((x-y)**2) )
+ans0 <- as.integer(c(1,2))
+
+set.seed(1)
+n <- 10
+Z <- rbinom(n,size=1,prob=1/2)
+X <- Z*mvtnorm::rmvnorm(n,c(0,0),diag(2))+
+  (1-Z)*mvtnorm::rmvnorm(n,c(5,5),diag(2))
+mu <- rbind(c(0,1),c(1,0))
+e_step(X, mu, euclidean_dist)
+ans <- as.integer(c(2,1,1,2,2,1,2,1,2,2))
+
+if (is.null(e_step(X0,mu0,euclidean_dist))){
+  errors <- c(errors, "e_step yields NULL value")
+} else if (!identical(e_step(X0,mu0,euclidean_dist), ans0)){
+  errors <- c(errors, "e_step(X0,mu0,euclidean_dist) != ans0")
+} else if (!identical(e_step(X,mu,euclidean_dist), ans)){
+  errors <- c(errors, "e_step(X,mu,euclidean_dist) != ans")
+} else {
+  correct <- correct + 1
+}
+
+# 9. m_step ----
+
+X0 <- matrix(c(0,0,1,1,1,1),3,2,byrow=T)
+ans0 <- matrix(c(.5,.5,1,1),2,2,byrow=T)
+
+if (is.null(m_step(X0,c(1,1,2),euclidean_dist))){
+  errors <- c(errors, "m_step yields NULL value")
+} else if (!identical(unname(m_step(X0,c(1,1,2),euclidean_dist)),ans0)){
+  errors <- c(errors, "m_step(X0,mu0,euclidean_dist) != ans0")
+} else {
+  correct <- correct + 1
+}
+
+# 10. my_kmeans ----
+
+set.seed(1)
+ans <- as.integer(Z+1)
+clusters <- my_kmeans(X,2,euclidean_dist)
+
+if (is.null(clusters)){
+  errors <- c(errors, "my_kmeans yields NULL value")
+} else if (!identical(clusters, ans)){
+  errors <- c(errors, "my_kmeans(X,2,euclidean_dist) != ans")
+} else if (identical(my_kmeans(X,2,euclidean_dist),ans)){
+  errors <- c(errors, "my_kmeans(X,2,euclidean_dist) = ans when called twice: suspicious")
 } else {
   correct <- correct + 1
 }
 
 # Grading ----
 
-n <- 7
+n <- 10
 if (correct < n){
   print(errors)
   stop('Grade: ', round(correct/n,2)*100)
