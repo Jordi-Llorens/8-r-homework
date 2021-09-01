@@ -125,8 +125,7 @@ ans0 <- as.integer(c(1,2))
 set.seed(1)
 n <- 10
 Z <- rbinom(n,size=1,prob=1/2)
-X <- Z*matrix(rnorm(n*2,c(0,0)),n,2)+
-  (1-Z)*matrix(rnorm(n*2,c(5,5)),n,2)
+X <- Z*matrix(rnorm(n*2,0),n,2)+(1-Z)*matrix(rnorm(n*2,5),n,2)
 mu <- rbind(c(0,1),c(1,0))
 ans <- as.integer(c(2, 2, 1, 1, 1, 2, 1, 1, 1, 1))
 
