@@ -1,5 +1,5 @@
-source('exercises.R')
-# source('solutions.R')
+# source('exercises.R')
+source('solutions.R')
 correct <- 0
 errors <- c()
 
@@ -128,8 +128,7 @@ Z <- rbinom(n,size=1,prob=1/2)
 X <- Z*matrix(rnorm(n*2,c(0,0)),n,2)+
   (1-Z)*matrix(rnorm(n*2,c(5,5)),n,2)
 mu <- rbind(c(0,1),c(1,0))
-e_step(X, mu, euclidean_dist)
-ans <- as.integer(c(2,1,1,2,2,1,2,1,2,2))
+ans <- as.integer(c(2, 2, 1, 1, 1, 2, 1, 1, 1, 1))
 
 if (is.null(e_step(X0,mu0,euclidean_dist))){
   errors <- c(errors, "e_step yields NULL value")
@@ -156,8 +155,8 @@ if (is.null(m_step(X0,c(1,1,2),euclidean_dist))){
 
 # 10. my_kmeans ----
 
-set.seed(1)
-ans <- as.integer(Z+1)
+set.seed(42)
+ans <- as.integer(1-Z+1)
 clusters <- my_kmeans(X,2,euclidean_dist)
 
 if (is.null(clusters)){
