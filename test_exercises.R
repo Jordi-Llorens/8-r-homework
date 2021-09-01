@@ -1,5 +1,5 @@
-# source('exercises.R')
-source('solutions.R')
+source('exercises.R')
+# source('solutions.R')
 correct <- 0
 errors <- c()
 
