@@ -37,14 +37,29 @@ countdown <- function(n){
 
 # 4. -----
 # Convert day column so that it is integer (without dplyr)
+
 chr2int <- function(df){
   # your code
   return(df)
 }
 
-
-# 5. Determine which columns contain missing values ----
+# 5. -----
+# Determine which columns contain missing values (without dplyr)
 
 na.by.col <- function(df){
   # your code
 }
+
+# 6. -----
+# Convert date of birth to age. 
+# Assume "today" is a character of the form "2021-09-01",
+# and "date" is a vector of characters with the same format.
+# We do not want to allow for dates that happen "today" or after. 
+# Handle this with a stopifnot
+# Ages should be given in YEARS (not in days), and if decimal they 
+# should be rounded to the lowest integer
+
+dob2age <- function(today,dates){
+  # your code
+}
+
