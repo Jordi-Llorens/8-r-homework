@@ -1,6 +1,7 @@
 # 1. ----
 # Complete the code to return only even numbers
 # Hint: one word is all you need :)
+
 even <- function(vector){
   out <- NULL
   for (var in vector) {
