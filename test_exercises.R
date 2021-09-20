@@ -1,5 +1,5 @@
-source('exercises.R')
-# source('solutions.R')
+# source('exercises.R')
+source('solutions.R')
 correct <- 0
 errors <- c()
 
@@ -141,12 +141,12 @@ if (is.null(e_step(X0,mu0,euclidean_dist))){
 
 # 9. m_step ----
 
-X0 <- matrix(c(0,0,1,1,1,1),3,2,byrow=T)
+X0 <- matrix(c(1,1,0,0,1,1),3,2,byrow=T)
 ans0 <- matrix(c(.5,.5,1,1),2,2,byrow=T)
 
-if (is.null(m_step(X0,c(1,1,2),euclidean_dist))){
+if (is.null(m_step(X0,c(2,1,1),euclidean_dist))){
   errors <- c(errors, "m_step yields NULL value")
-} else if (!identical(unname(m_step(X0,c(1,1,2),euclidean_dist)),ans0)){
+} else if (!identical(unname(m_step(X0,c(2,1,1),euclidean_dist)),ans0)){
   errors <- c(errors, "m_step(X0,mu0,euclidean_dist) != ans0")
 } else {
   correct <- correct + 1
