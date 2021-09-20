@@ -1,6 +1,6 @@
 # 1. ----
 # Complete the code to return only even numbers
-
+# Hint: one word is all you need :)
 even <- function(vector){
   out <- NULL
   for (var in vector) {
@@ -27,7 +27,7 @@ is.first.true <- function(bool_vec1,bool_vec2){
 # Complete the code to return a vector ranging from n to zero
 
 countdown <- function(n){
-  # your code
+  vec <- c()
   while(n >= 0) {
     vec <- c(vec, n)
     # your code
@@ -64,7 +64,42 @@ dob2age <- function(today,dates){
   # your code
 }
 
-# 7. -----
+
+
+# 7. ----
+# The rivers data “gives the lengths (in miles) of 141 “major” rivers in 
+# North America, as compiled by the US Geological Survey” 
+# (you can find this description, and additonal information, if you enter 
+# help(rivers) in R).
+# Calculate the mean of rivers after trimming the 10 highest and lowest observations. 
+# Hint: first calculate the trim fraction, using the length function.
+mytrimmedmean <- function(){
+  # your code
+}
+
+
+# 8. ----
+
+# Suppose you put $1,000 in an investment fund that will exhibit the following
+# annual returns i8n the next 10 years: 9% 18% 10% 7% 2% 17% -8% 5% 9% 33%. 
+
+# Show how much money your investment will be worth at the end of each year for
+# the next 10 years, assuming returns are re-invested every year. 
+# We give the answer with a general function called myinvestment.
+# The function takes the arguments: 
+# - investment (number)
+# - returns_vector (numeric vector): for example, c(.09,.18,.10).
+
+# Hint: If an investment returns e.g. 4% per year, it will be worth 1.04 times 
+# as much after one year, 1.04 * 1.04 times as much after two years, 
+# 1.04 * 1.04 * 1.04 times as much after three years, etc.
+# Hint 2: explore the cumprod() function.
+myinvestment <- function(investment, returns_vector){
+  # your code
+}
+
+
+# 9. -----
 # Law of Large Numbers and Expected Values
 # Assume "x" is a numeric vector, and "p" a numeric vector of probabilities.
 # When "type" is "discrete", the expected value is (x_1*p_1 + ... + x_n*p_n)
@@ -85,57 +120,15 @@ exp.val <- function(x,p,icdf,type=c('discrete','continuous')){
   }
 }
 
-# 8. ----
-# E-step: for each row in the data matrix, assign the closest centroid 
-# based on distance d(x,y).
-# Arguments:
-# data: an n x p matrix.
-# mu: a K x p matrix.
-# d: a function d(x,y) where x and y are p-dimensional vectors.
-# Note: the vector of assignments must be in the range {1,...,K}.
-
-e_step <- function(data, centroids, d){
-  n <- nrow(data)
-  assignments <- rep(NA,n)
-  for (i in 1:n){
-    # your code
-  }
-  return(assignments)  
-}
-
-# 9. ----
-# M-step: recompute the centroids based on the sample average. 
-# Arguments:
-# data: an n x p matrix.
-# assignments: an n-vector of integers in {1,...,K}.
-# d: a function d(x,y) where x and y are p-dimensional vectors.
-#
-# For example, if K = 2, then the first centroid is the p-dimensional mean vector
-# of the data points assigned to class 1
-# and the second centroid is the p-dimensional mean vector of data points 
-# assigned to class 2.
-
-m_step <- function(data, assignments, d){
-  # your code
-  return(centroids)
-}
-
 # 10. ----
-# K-means algorithm. 
-# Arguments: 
-# data: n x p matrix.
-# K: an integer > 1.
-# d: a function d(x,y) where x and y are p-dimensional vectors.
-# Hint: use the functions e_step and m_step inside the while loop and exit the loop
-# when the vector of assignments stops changing.
-
-my_kmeans <- function(data,K,d){
-  n <- nrow(data)
-  p <- ncol(data)
-  centroids <- data[sample(1:n,size=K,replace=T),]
-  assignments <- rep(NA,n)
-  while(TRUE){
-    # your code
-  }
-  return(assignments)
+# We are going to draw many paths from a brownian motion. 
+# The first thing to note is that a brownian motion is just a cumulative sum
+# of normal random variables (mean 0, sd  1).
+# The function brownian_paths takes the following arguments:
+# - nsim: number of simulations
+# - N: number of observations per path
+# The output should be a matrix with nsim rows and N columns.
+brownian_paths <- function(nsim, N){
+  # your code
 }
+

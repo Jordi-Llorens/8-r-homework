@@ -1,5 +1,6 @@
-# source('exercises.R')
-source('solutions.R')
+source('exercises.R')
+# source('solutions.R')
+# source('solutions_f.R')
 correct <- 0
 errors <- c()
 
@@ -89,7 +90,37 @@ if (is.null(dob2age(today = today, dates = dobs))){
   correct <- correct + 1
 }
 
-# 7. exp.val ----
+
+# 7. trimmed_mean ----
+
+if (is.null(trimmed_mean(rivers))){
+  errors <- c(errors, "trimmed_mean yields NULL value")
+} else if (!identical(round(trimmed_mean(rivers),3),505.719)){
+  errors <- c(errors, "trimmed_mean != 505.719")
+} else if (!identical(round(trimmed_mean(rivers[-1]),4),503.8083)){
+  errors <- c(errors, "trimmed_mean != 503.8083 when removing the first obs")
+} else {
+  correct <- correct + 1
+}
+
+# 8. myinvestment ----
+
+C<-1000
+r<-c(9, 18, 10, 7, 2, 17, -8, 5, 9, 33)/100
+ans <- c(1090.000, 1286.200, 1414.820, 1513.857, 1544.135, 
+         1806.637, 1662.106, 1745.212, 1902.281,2530.033)
+
+if (is.null(myinvestment(investment=C,returns_vector=r))){
+  errors <- c(errors, "myinvestment yields NULL value")
+} else if (length(myinvestment(C,r)) != length(r)){
+  errors <- c(errors, "myinvestment should yield a vector of length 10")
+} else if ( !isTRUE(all.equal(myinvestment(C,r),ans,tolerance=1e-3)) ){
+  errors <- c(errors, "my investment yields incorrect result")
+} else {
+  correct <- correct + 1
+}
+
+# 9. exp.val ----
 # Law of Large Numbers and Expected Values
 
 exp.icdf <- function(u) qexp(u,rate=2)
@@ -115,58 +146,23 @@ if (is.null(exp.val(x,p,type='d'))){
   correct <- correct + 1
 }
 
-# 8. e_step ----
+# 10. brownian_paths ----
 
-X0 <- matrix(c(.1,.1,.9,.9),2,2,byrow=T)
-mu0 <- matrix(c(0,0,1,1),2,2,byrow=T)
-euclidean_dist <- function(x,y) sqrt( sum((x-y)**2) )
-ans0 <- as.integer(c(1,2))
+set.seed(123)
+sol2by2<-brownian_paths(2,2)
+sol2by3<-brownian_paths(2,3)
+ans <- matrix(c(-0.5604756,  1.5587083, -0.7906531,  1.6292167),2,2)
 
-set.seed(1)
-n <- 10
-Z <- rbinom(n,size=1,prob=1/2)
-X <- Z*matrix(rnorm(n*2,0),n,2)+(1-Z)*matrix(rnorm(n*2,5),n,2)
-mu <- rbind(c(0,1),c(1,0))
-ans <- as.integer(c(2, 2, 1, 1, 1, 2, 1, 1, 1, 1))
-
-if (is.null(e_step(X0,mu0,euclidean_dist))){
-  errors <- c(errors, "e_step yields NULL value")
-} else if (!identical(e_step(X0,mu0,euclidean_dist), ans0)){
-  errors <- c(errors, "e_step(X0,mu0,euclidean_dist) != ans0")
-} else if (!identical(e_step(X,mu,euclidean_dist), ans)){
-  errors <- c(errors, "e_step(X,mu,euclidean_dist) != ans")
+if (is.null(sol2by2)){
+  errors <- c(errors, "brownian_paths yields NULL value")
+} else if ( !identical(dim(sol2by3), c(2L,3L))){
+  errors <- c(errors, "brownian_paths has incorrect dimensions")
+} else if ( !isTRUE(all.equal(sol2by2,ans,tolerance=1e-3))){
+  errors <- c(errors, "brownian_paths yields incorrect result")
 } else {
   correct <- correct + 1
 }
 
-# 9. m_step ----
-
-X0 <- matrix(c(1,1,0,0,1,1),3,2,byrow=T)
-ans0 <- matrix(c(.5,.5,1,1),2,2,byrow=T)
-
-if (is.null(m_step(X0,c(2,1,1),euclidean_dist))){
-  errors <- c(errors, "m_step yields NULL value")
-} else if (!identical(unname(m_step(X0,c(2,1,1),euclidean_dist)),ans0)){
-  errors <- c(errors, "m_step(X0,mu0,euclidean_dist) != ans0")
-} else {
-  correct <- correct + 1
-}
-
-# 10. my_kmeans ----
-
-set.seed(42)
-ans <- as.integer(1-Z+1)
-clusters <- my_kmeans(X,2,euclidean_dist)
-
-if (is.null(clusters)){
-  errors <- c(errors, "my_kmeans yields NULL value")
-} else if (!identical(clusters, ans)){
-  errors <- c(errors, "my_kmeans(X,2,euclidean_dist) != ans")
-} else if (identical(my_kmeans(X,2,euclidean_dist),ans)){
-  errors <- c(errors, "my_kmeans(X,2,euclidean_dist) = ans when called twice: suspicious")
-} else {
-  correct <- correct + 1
-}
 
 # Grading ----
 
