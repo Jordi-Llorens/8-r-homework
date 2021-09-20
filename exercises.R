@@ -46,7 +46,7 @@ chr2int <- function(df){
 
 
 # 5. -----
-# Determine which columns contain missing values (without dplyr)
+# Given a dataframe, determine which columns contain missing values
 
 na.by.col <- function(df){
   # your code
