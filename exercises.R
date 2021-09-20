@@ -74,7 +74,7 @@ dob2age <- function(today,dates){
 # help(rivers) in R).
 # Calculate the mean of rivers after trimming the 10 highest and lowest observations. 
 # Hint: first calculate the trim fraction, using the length function.
-mytrimmedmean <- function(){
+trimmed_mean <- function(rivers){
   # your code
 }
 
@@ -82,7 +82,7 @@ mytrimmedmean <- function(){
 # 8. ----
 
 # Suppose you put $1,000 in an investment fund that will exhibit the following
-# annual returns i8n the next 10 years: 9% 18% 10% 7% 2% 17% -8% 5% 9% 33%. 
+# annual returns in the next 10 years: 9% 18% 10% 7% 2% 17% -8% 5% 9% 33%. 
 
 # Show how much money your investment will be worth at the end of each year for
 # the next 10 years, assuming returns are re-invested every year. 
@@ -95,6 +95,7 @@ mytrimmedmean <- function(){
 # as much after one year, 1.04 * 1.04 times as much after two years, 
 # 1.04 * 1.04 * 1.04 times as much after three years, etc.
 # Hint 2: explore the cumprod() function.
+
 myinvestment <- function(investment, returns_vector){
   # your code
 }
@@ -124,11 +125,13 @@ exp.val <- function(x,p,icdf,type=c('discrete','continuous')){
 # 10. ----
 # We are going to draw many paths from a brownian motion. 
 # The first thing to note is that a brownian motion is just a cumulative sum
-# of normal random variables (mean 0, sd  1).
+# of normal random variables (mean 0, sd  1). 
+# For this exercise we will ignore that the initial value of a BM is zero.
 # The function brownian_paths takes the following arguments:
 # - nsim: number of simulations
 # - N: number of observations per path
 # The output should be a matrix with nsim rows and N columns.
+
 brownian_paths <- function(nsim, N){
   # your code
 }
