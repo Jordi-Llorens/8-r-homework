@@ -90,7 +90,7 @@ exp.val <- function(x,p,icdf,type=c('discrete','continuous')){
 # based on distance d(x,y).
 # Arguments:
 # data: an n x p matrix.
-# mu: a p x K matrix.
+# mu: a K x p matrix.
 # d: a function d(x,y) where x and y are p-dimensional vectors.
 # Note: the vector of assignments must be in the range {1,...,K}.
 
